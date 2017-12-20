@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<link rel="stylesheet" type="text/css"
+href="../Content/Bootstrap/bootstrap.min.css">
+	<body ng-app="MyApp" ng-controller="PromotionController" >
+	  <div class="container" ng-init="getAllPromotions()" style="margin-top:100;">
+		<div class="panel panel-default">
+		  <div class="panel-heading">Liste des promotions</div>
+		  <div class="panel-body">
+		  		
+		
+			<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Code Promotion</th><th>Intituler</th><th>Description</th>
+					<th>Date debut</th><th>Date fin</th><th>Taux</th><th>Oppertaion</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="p in promotions">
+					<td>{{p.codePromo}}</td><td>{{p.intutuler}}</td>
+					<td>{{p.description}}</td><td>{{p.dateDebut}}</td><td>{{p.dateFin}}</td>
+					<td>{{p.taux}}</td>
+					<td>
+					    <input type="button" class="btn btn-warning" value="Modifier" ng-click="GetUpdateProduit(p)" />
+	                    <input type="button" class="btn btn-danger" value="Produits" ng-click="ShowPromotionProduits(p)" />
+					</td>
+					
+				</tr>
+			</tbody>
+		</table>
+		</div>
+		
+		</div>
+		</div>
+		
+
+		<div class="container">
+		<div class="panel panel-default">
+			  <div class="panel-heading">Liste des produite de la promo {{prodDetail.codePromo}}</div>
+			  <div class="panel-body">
+			  	<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Numero Produit</th><th>Type</th><th>Intituler</th><th>Description</th>
+							<th>Prix</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="prod in prodDetail.listeProduit">
+							<td>{{prod.numProduit}}</td><td>{{prod.type_produit}}</td>
+							<td>{{prod.intituler}}</td><td>{{prod.description}}</td>
+							<td>{{prod.prix}}</td>
+							
+							
+						</tr>
+					</tbody>
+				</table>
+				
+			  </div>
+			</div>
+			</div>
+		
+	<script type="text/javascript" src="../Content/Scripts/angular.min.js"></script>
+	<script type="text/javascript" src="../Content/Scripts/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../Content/App/App.js"></script>
+</body>
+</html>

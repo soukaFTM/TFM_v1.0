@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<link rel="stylesheet" type="text/css"
+href="../Content/Bootstrap/bootstrap.min.css">
+	<body ng-app="MyApp" ng-controller="PromotionController" >
+		<div class="container" ng-init="getAllProduits()">
+
+        
+        <div class="form-group">
+            <label class="col-md-4 control-label">Intituler:</label>
+            <div class="col-md-8">
+                <input type="text" class="form-control" placeholder="Intituler" ng-model="promotion.intituler">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label">Description:</label>
+            <div class="col-md-8">
+                <input type="text" class="form-control"placeholder="Description" ng-model="promotion.description">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label">Date debut:</label>
+            <div class="col-md-8">
+                <input type="date" class="form-control" placeholder="Date debut" ng-model="promotion.dateDebut">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label">Date fin:</label>
+            <div class="col-md-8">
+                <input type="date" class="form-control" placeholder="Date fin" ng-model="promotion.dateFin">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label">Taux:</label>
+            <div class="col-md-8">
+                <input type="text" class="form-control"  placeholder="Taux" ng-model="promotion.taux">
+            </div>
+        </div>
+        <div class="form-group" >
+            <label class="col-md-4 control-label">Produits:</label>
+            <div class="col-md-8">
+                <select id="produit"  class="form-control" name="ChosenProduit" id="ChosenProduit" ng-model="ChosenProduit" multiple>
+                	<option ng-repeat="p in pageProduits.content" value="{{p}}">{{p.intituler}}</option>
+                </select>
+                
+    <tt>multipleSelect = {{ChosenProduit}}</tt><br/>
+            </div>
+        </div>
+        <div class="form-group">
+           <input type="button" id="btnSave" class="form-control btn-space" value="Sauvgarder" ng-click="SavePromotion()" />     
+        </div>
+	 </div>
+		
+	
+	
+
+	<script type="text/javascript" src="../Content/Scripts/angular.min.js"></script>
+	<script type="text/javascript" src="../Content/Scripts/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../Content/App/App.js"></script>
+</body>
+</html>

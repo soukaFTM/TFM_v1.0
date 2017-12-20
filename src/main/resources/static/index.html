@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css"
+href="Content/Bootstrap/bootstrap.min.css">
+<title>Gestion des produits</title>
+
+</head>
+<body ng-app="MyApp" ng-controller="MyController" >
+<div class="container" ng-init="getAllProduits()">
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Numero Produit</th><th>Type</th><th>Intituler</th><th>Description</th>
+				<th>Prix</th><th>Oppertaion</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="p in pageProduits.content">
+				<td>{{p.numProduit}}</td><td>{{p.type_produit}}</td>
+				<td>{{p.intituler}}</td><td>{{p.description}}</td>
+				<td>{{p.prix}}</td>
+				<td>
+				    <input type="button" class="btn btn-warning" value="Modifier" ng-click="GetUpdateProduit(p)" />
+                    <input type="button" class="btn btn-danger" value="Supprimer" ng-click="DeleteProduit(p)" />
+				</td>
+				
+			</tr>
+		</tbody>
+	</table>
+</div>
+<div class="container" >
+	
+	<div class="row">
+
+        <div class="form-group">
+            <label class="col-md-4 control-label">typeProduit:</label>
+            <div class="col-md-8">
+                <input type="text" class="form-control" placeholder="typeProduit" ng-model="typeProduit">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label">Intituler:</label>
+            <div class="col-md-8">
+                <input type="text" class="form-control" placeholder="Intituler" ng-model="produit.intituler">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label">Description:</label>
+            <div class="col-md-8">
+                <input type="text" class="form-control"placeholder="Description" ng-model="produit.description">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label">Prix:</label>
+            <div class="col-md-8">
+                <input type="text" class="form-control"  placeholder="Prix" ng-model="produit.prix">
+            </div>
+        </div>
+        <div class="form-group">
+           <input type="button" id="btnSave" class="form-control btn-space" value="Sauvgarder" ng-click="gestionProduit()" />     
+        </div>
+	 </div>
+ </div>
+	
+	
+	
+	
+	
+	
+	<script type="text/javascript" src="Content/Scripts/angular.min.js"></script>
+	<script type="text/javascript" src="Content/Scripts/bootstrap.min.js"></script>
+	<script type="text/javascript" src="Content/App/App.js"></script>
+</body>
+</html>
