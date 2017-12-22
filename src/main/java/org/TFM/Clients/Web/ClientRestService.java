@@ -30,7 +30,7 @@ public class ClientRestService {
 	EnfantRepository enfantRepository;
 	CommandeRepository commandeRepository;
 
-	/************** traitement des Client Physique *********************/
+	/************** traitement des Clients Physiques *********************/
 	
 	@RequestMapping(value="/PageClientPhysique",method=RequestMethod.GET)
 	public Page<Client> listPageClientPhysique(
@@ -50,7 +50,7 @@ public class ClientRestService {
 		return clientRepository.save(p); 
 	}	
 	
-/************** traitement des Client Moral *********************/
+/************** traitement des Clients Morals *********************/
 	
 	@RequestMapping(value="/PageClientMoral",method=RequestMethod.GET)
 	public Page<Client> listPageClientMoral(
