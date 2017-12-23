@@ -58,6 +58,18 @@ public class Enfant {
 	public void setDateNaissance(Date dateNaissance) {
 		this.dateNaissance = dateNaissance;
 	}
+	public long getCodeEnfant() {
+		return codeEnfant;
+	}
+	public void setCodeEnfant(long codeEnfant) {
+		this.codeEnfant = codeEnfant;
+	}
+	public Collection<Commande> getListCommande() {
+		return ListCommande;
+	}
+	public void setListCommande(Collection<Commande> listCommande) {
+		ListCommande = listCommande;
+	}
 
 	
 }

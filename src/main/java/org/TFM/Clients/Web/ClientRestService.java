@@ -23,12 +23,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
+@CrossOrigin("*")
 
 public class ClientRestService {
 	@Autowired 
 	ClientRepository clientRepository;
-	EnfantRepository enfantRepository;
+	@Autowired
+	EnfantRepository enfantRepository ;
+	@Autowired
 	CommandeRepository commandeRepository;
+
 
 	/************** traitement des Client Physique *********************/
 	
@@ -68,6 +72,7 @@ public class ClientRestService {
 	public ClientMoral saveClientMoral(@RequestBody ClientMoral p)
 	{
 		return clientRepository.save(p); 
+		
 	}	
 	
 	/*
@@ -116,6 +121,8 @@ public class ClientRestService {
 	@RequestMapping(value="/addEnfantToClient/{numClient}",method=RequestMethod.PUT)
 	public Client addEnfantToClient(@RequestBody Enfant e,@PathVariable ("numClient") Long numclient)
 	{
+
+
 		Enfant enfant = enfantRepository.save(e);
 		Client Client = (Client) clientRepository.findOne(numclient);
 		Client.getListEnfant().add(enfant);
