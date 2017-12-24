@@ -108,4 +108,54 @@ public class ProduitRestService {
 	{
 		return (ArrayList<AbstractProduit>) produitRepository.findAll(); 
 	}
+	
+	/**********************Competences*****************************/
+	
+	@RequestMapping(value="/addCompetenceToProduit/{numProd}",method=RequestMethod.PUT)
+	public Produit addCompetenceToProduit(@RequestBody Competence comp,@PathVariable ("numProd") Long numProd)
+	{
+		Produit produit = (Produit) produitRepository.findOne(numProd);
+		produit.getListCompetence().add(comp);
+		return produitRepository.save(produit); 
+		
+	}
+	@RequestMapping(value="/removeCompetenceFromProduit/{numProd}",method=RequestMethod.PUT)
+	public Produit removeCompetenceFromProduit(@RequestBody Competence comp,@PathVariable ("numProd") Long numProd)
+	{
+		Produit produit = (Produit) produitRepository.findOne(numProd);
+		for (Competence c : produit.getListCompetence()) {
+			if(c.getCodeCompetence()==comp.getCodeCompetence())
+			{
+				produit.getListCompetence().remove(c);
+				return produitRepository.save(produit); 
+			}
+		}
+		return produitRepository.save(produit); 
+	}
+	
+/**********************Projets*****************************/
+	
+	@RequestMapping(value="/addProjetToProduit/{numProd}",method=RequestMethod.PUT)
+	public Produit addProjetToProduit(@RequestBody Projet projet,@PathVariable ("numProd") Long numProd)
+	{
+		System.out.println("Projet => "+projet.getIntituler());
+		Produit produit = (Produit) produitRepository.findOne(numProd);
+		produit.getListProjet().add(projet);
+		return produitRepository.save(produit); 
+		
+	}
+	@RequestMapping(value="/removeProjetFromProduit/{numProd}",method=RequestMethod.PUT)
+	public Produit removeProjetFromProduit(@RequestBody Projet projet,@PathVariable ("numProd") Long numProd)
+	{
+		Produit produit = (Produit) produitRepository.findOne(numProd);
+		for (Projet p : produit.getListProjet()) {
+			if(p.getCodeProjet()==projet.getCodeProjet())
+			{
+				produit.getListProjet().remove(p);
+				return produitRepository.save(produit); 
+			}
+		}
+		return produitRepository.save(produit); 
+	}
+	
 }

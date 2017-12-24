@@ -121,8 +121,6 @@ public class ClientRestService {
 	@RequestMapping(value="/addEnfantToClient/{numClient}",method=RequestMethod.PUT)
 	public Client addEnfantToClient(@RequestBody Enfant e,@PathVariable ("numClient") Long numclient)
 	{
-
-
 		Enfant enfant = enfantRepository.save(e);
 		Client Client = (Client) clientRepository.findOne(numclient);
 		Client.getListEnfant().add(enfant);
