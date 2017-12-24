@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.TFM.Produits.Entities.*;
 import org.TFM.Produits.DAO.ProduitRepository;
+import org.TFM.Produits.DAO.ProjetRepository;
 import org.TFM.Produits.Entities.AbstractProduit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProduitRestService {
 	@Autowired 
 	ProduitRepository produitRepository;
-	
+
 	/******* simple Produit ***********/
 	@RequestMapping(value="/PageProduits",method=RequestMethod.GET)
 	public Page<Produit> listPageProduit(
@@ -138,7 +139,6 @@ public class ProduitRestService {
 	@RequestMapping(value="/addProjetToProduit/{numProd}",method=RequestMethod.PUT)
 	public Produit addProjetToProduit(@RequestBody Projet projet,@PathVariable ("numProd") Long numProd)
 	{
-		System.out.println("Projet => "+projet.getIntituler());
 		Produit produit = (Produit) produitRepository.findOne(numProd);
 		produit.getListProjet().add(projet);
 		return produitRepository.save(produit); 

@@ -1,11 +1,15 @@
 package org.TFM.Produits.Entities;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Competence {
@@ -17,9 +21,23 @@ public class Competence {
 	private Date DateCreation;
 	private Date DateModification;
 	private Date DateSuppression;
+	
+	//@ManyToMany
+	//private Collection<Produit> ListProduit;
+	
 	public Competence(){
 
 	}
+
+/*
+	public Collection<Produit> getListProduit() {
+		return ListProduit;
+	}
+
+
+	public void setListProduit(Collection<Produit> listProduit) {
+		ListProduit = listProduit;
+	}*/
 
 
 	public long getCodeCompetence() {

@@ -1,11 +1,13 @@
 package org.TFM.Produits.Entities;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Projet {
@@ -17,6 +19,26 @@ public class Projet {
 	private Date DateCreation;
 	private Date DateModification;
 	private Date DateSuppression;
+	
+	//@ManyToMany
+	//private Collection<Produit> ListProduit;
+	
+	/*
+	public Collection<Produit> getListProduit() {
+		return ListProduit;
+	}
+
+
+	public void setListProduit(Collection<Produit> listProduit) {
+		ListProduit = listProduit;
+	}
+
+*/
+	public void setCodeProjet(long codeProjet) {
+		CodeProjet = codeProjet;
+	}
+
+
 	public Projet(){
 
 	}
@@ -25,12 +47,6 @@ public class Projet {
 	public long getCodeProjet() {
 		return CodeProjet;
 	}
-
-
-	public void setCodeType(long codeProjet) {
-		CodeProjet = codeProjet;
-	}
-
 
 	public String getDescription() {
 		return Description;

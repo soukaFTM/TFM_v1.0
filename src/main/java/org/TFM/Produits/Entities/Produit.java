@@ -4,10 +4,15 @@ import java.util.Collection;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * @author Xwomen
@@ -22,18 +27,10 @@ public class Produit extends AbstractProduit {
 	@JoinColumn(name = "CodeType")
 	public TypeProduit typeProduit;
 
-	@OneToMany
-	@JoinTable(
-			name = "ProduitCompetence", 
-			joinColumns = @JoinColumn(name = "NumProduit"),
-			inverseJoinColumns = @JoinColumn(name = "codeCompetence"))
+	@OneToMany(fetch = FetchType.LAZY)
 	private Collection<Competence> ListCompetence;
 	
-	@OneToMany
-	@JoinTable(
-			name = "ProduitProjet", 
-			joinColumns = @JoinColumn(name = "NumProduit"),
-			inverseJoinColumns = @JoinColumn(name = "codeProjet"))
+	@OneToMany(fetch = FetchType.LAZY)
 	private Collection<Projet> ListProjet;
 	
 	public Collection<Competence> getListCompetence() {

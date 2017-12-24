@@ -10,25 +10,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 
-import org.TFM.Produits.Entities.Produit;
-
 @Entity
-public class Programme {
+public class RealisationProjet {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long CodeProgramme;
+	private long CodeRealisation;
 	
 	@OneToMany
 	@JoinTable(
-			name = "ProgrammeGroupe", 
-			joinColumns = @JoinColumn(name = "codeProgramme"),
-			inverseJoinColumns = @JoinColumn(name = "codeGroupe"))
-	private Collection<Groupe> ListGroupe;
-	
-	
-	
-
-
-	
+			name = "ProjetSeance", 
+			joinColumns = @JoinColumn(name = "CodeRealisation"),
+			inverseJoinColumns = @JoinColumn(name = "codeSeance"))
+	private Collection<Seance> ListSeance;
 }
