@@ -75,7 +75,7 @@ public class ProduitRestService {
 		
 	}
 	@RequestMapping(value="/removeProduitFromPack/{numProd}",method=RequestMethod.PUT)
-	public Pack removeProduitFromPack(@RequestBody Pack prodAsupp,@PathVariable ("numProd") Long numProd)
+	public Pack removeProduitFromPack(@RequestBody Produit prodAsupp,@PathVariable ("numProd") Long numProd)
 	{
 		Pack produit = (Pack) produitRepository.findOne(numProd);
 		for (AbstractProduit p : produit.getListProduit()) {
