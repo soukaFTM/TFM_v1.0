@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonSetter;
 
 /**
  * @author Xwomen
@@ -27,24 +28,33 @@ public class Produit extends AbstractProduit {
 	@JoinColumn(name = "CodeType")
 	public TypeProduit typeProduit;
 
-	@OneToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(
+			name = "ProduitCompetence", 
+			joinColumns = @JoinColumn(name = "numProduit"),
+			inverseJoinColumns = @JoinColumn(name = "codeCompetence"))
 	private Collection<Competence> ListCompetence;
 	
-	@OneToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(
+			name = "ProduitProjet", 
+			joinColumns = @JoinColumn(name = "numProduit"),
+			inverseJoinColumns = @JoinColumn(name = "codeProjet"))
 	private Collection<Projet> ListProjet;
 	
+	@JsonIgnore
 	public Collection<Competence> getListCompetence() {
 		return ListCompetence;
 	}
-
+	@JsonSetter
 	public void setListCompetence(Collection<Competence> listCompetence) {
 		ListCompetence = listCompetence;
 	}
-
+	@JsonIgnore
 	public Collection<Projet> getListProjet() {
 		return ListProjet;
 	}
-
+	@JsonSetter
 	public void setListProjet(Collection<Projet> listProjet) {
 		ListProjet = listProjet;
 	}
