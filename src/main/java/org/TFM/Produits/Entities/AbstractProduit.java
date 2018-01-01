@@ -20,7 +20,7 @@ import javax.persistence.InheritanceType;
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="CategorieProduit",
 discriminatorType=DiscriminatorType.STRING,length=7)
-public abstract class AbstractProduit {
+public class AbstractProduit {
 
 	public AbstractProduit(String intituler, double prix, String description) {
 		super();

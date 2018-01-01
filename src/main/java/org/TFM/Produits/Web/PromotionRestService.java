@@ -38,7 +38,18 @@ public class PromotionRestService {
 	@RequestMapping(value="/savePromotion",method=RequestMethod.POST)
 	public Promotion savePromotion(@RequestBody Promotion p)
 	{
+		Promotion promo = promotionRepository.findOne(p.getCodePromo());
+		if(promo!=null)
+		{
+			promo.setDescription(p.getDescription());
+			promo.setTaux(p.getTaux());
+			promo.setDateDebut(p.getDateDebut());
+			promo.setDateFin(p.getDateFin());
+			promo.setIntituler(p.getIntituler());
+			return promotionRepository.saveAndFlush(promo); 
+		}
 		return promotionRepository.save(p); 
+
 	}
 	
 	@RequestMapping(value="/addProduitToPromotion/{codePromo}",method=RequestMethod.PUT)
@@ -63,13 +74,13 @@ public class PromotionRestService {
 		return promotionRepository.save(promotion); 
 	}
 	
-	@RequestMapping(value="/promotion/{codePromo}",method=RequestMethod.PUT)
+	/*@RequestMapping(value="/promotion/{codePromo}",method=RequestMethod.PUT)
 	public Promotion updatePromotion(@RequestBody Promotion p,@PathVariable ("codePromo") Long codePromo)
 	{
 		p.setCodePromo(codePromo);
 		return promotionRepository.saveAndFlush(p); 
 	}
-	
+	*/
 	@RequestMapping(value="/promotion/{codePromo}",method=RequestMethod.DELETE)
 	public void deletePromotion(@PathVariable ("codePromo") Long codePromo)
 	{

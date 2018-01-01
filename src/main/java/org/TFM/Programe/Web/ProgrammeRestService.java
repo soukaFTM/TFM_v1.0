@@ -28,9 +28,6 @@ public class ProgrammeRestService {
 	@Autowired
 	GroupeRepository groupeRepository ;
 	
-
-
-	
 	@RequestMapping(value="/AllProgramme",method=RequestMethod.GET)
 	public ArrayList<Programme> listAllProgramme()
 	{
@@ -39,6 +36,14 @@ public class ProgrammeRestService {
 	@RequestMapping(value="/saveProgramme",method=RequestMethod.POST)
 	public Programme saveProgramme(@RequestBody Programme p)
 	{
+		System.out.println(p.getProduit().getNumProduit());
+		return ProgrammeRepository.save(p); 
+	}	
+	
+	@RequestMapping(value="/saveProgrammePack",method=RequestMethod.POST)
+	public Programme saveProgrammePack(@RequestBody Programme p)
+	{
+		System.out.println(p.getProduit().getNumProduit());
 		return ProgrammeRepository.save(p); 
 	}	
 	

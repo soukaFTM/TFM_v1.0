@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import org.TFM.Formateur.DAO.FormateurRepository;
 import org.TFM.Formateur.Entities.Formateur;
 import org.TFM.Produits.DAO.CompetenceRepository;
+import org.TFM.Produits.DAO.ProduitRepository;
+import org.TFM.Produits.Entities.AbstractProduit;
+import org.TFM.Produits.Entities.Pack;
 import org.TFM.Produits.Entities.Produit;
 import org.TFM.Programe.DAO.GroupeRepository;
 import org.TFM.Programe.DAO.SeanceRepository;
@@ -31,6 +34,8 @@ public class FormateurRestService {
 	SeanceRepository seanceRepository;
 	@Autowired
 	GroupeRepository groupeRepository;
+	@Autowired
+	ProduitRepository produitRepository;
 	
 	/* Lister les formateurs par page */
 	@RequestMapping(value="/PageFormateurs",method=RequestMethod.GET)
@@ -64,5 +69,39 @@ public class FormateurRestService {
 	}
 	
 	/* Modifier Formateur */
+	
+	
+	@RequestMapping(value="/getAllResponsableForProgramme/{codeProduit}",method=RequestMethod.GET)
+	public ArrayList<Formateur> getAllResponsableForProgramme(@PathVariable ("codeProduit") Long codeProduit)
+	{
+		ArrayList<Formateur> ResponsableForProgramme = new ArrayList<Formateur>();
+		AbstractProduit Aprod = produitRepository.findOne(codeProduit);
+		System.out.println(Aprod.getClass().getName());
+		if(Aprod.getClass().getName().equals("org.TFM.Produits.Entities.Pack"))
+		{
+			Pack prod=(Pack)Aprod;
+			boolean flag = true;
+			 for (Formateur f : formateurRepository.findAll()) {
+				 for (Produit p : prod.getListProduit()) {
+					 if(!f.getMesCompetences().containsAll(p.getListCompetence()))
+					 {		
+						 flag = false;
+					 	  break;
+					 }
+				}
+			  if(flag) ResponsableForProgramme.add(f);
+			}
+		}
+		else
+		{
+			Produit prod=(Produit)Aprod;
+			 for (Formateur f : formateurRepository.findAll()) {
+				 if(f.getMesCompetences().containsAll(prod.getListCompetence()))
+					ResponsableForProgramme.add(f);
+			}
+		}
+		return ResponsableForProgramme;
+		
+	}
 	
 }

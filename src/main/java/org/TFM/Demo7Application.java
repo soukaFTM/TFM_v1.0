@@ -3,7 +3,6 @@
 import java.sql.Date;
 
 import org.TFM.Produits.Entities.Produit;
-import org.ilisi.clients.dao.EnfantRepository;
 import org.TFM.Clients.DAO.ClientRepository;
 import org.TFM.Produits.DAO.ProduitRepository;
 import org.TFM.Produits.DAO.PromotionRepository;
@@ -26,7 +25,6 @@ public class Demo7Application implements CommandLineRunner{
 	@Override
 	public void run(String... arg0) throws Exception {
 		
-		clientRepository.
 		
 	}
 }

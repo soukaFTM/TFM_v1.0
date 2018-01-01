@@ -1,6 +1,6 @@
 package org.TFM.Formateur.Entities;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -49,6 +49,14 @@ public class Formateur {
 			inverseJoinColumns = @JoinColumn(name = "CodeCompetence"))
 	private List<Competence> mesCompetences;
 	
+	public List<Competence> getMesCompetences() {
+		return mesCompetences;
+	}
+
+	public void setMesCompetences(List<Competence> mesCompetences) {
+		this.mesCompetences = mesCompetences;
+	}
+
 	public Formateur() {
 		super();
 		// TODO Auto-generated constructor stub

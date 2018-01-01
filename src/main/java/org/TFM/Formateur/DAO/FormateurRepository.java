@@ -18,24 +18,25 @@ public interface FormateurRepository extends JpaRepository<Formateur, Long>{
 	@Query("select f from Formateur f ")
 	public ArrayList<Formateur> findFormateur();
 	
-	/*Lister les seances d'un formateur */
+	// prk la requette => on a deja les listes dans l'objet formateur
+	/*Lister les seances d'un formateur 
 	@Query("select s from Formateur.mesSeances s ")
 	public Page<Formateur> findPageFormateurSeances(Pageable pageable);
 	@Query("select s from Formateur.mesSeances s ")
 	public ArrayList<Formateur> findFormateurSeances();
 	
-	/*Lister les competences d'un formateur */
+	Lister les competences d'un formateur 
 	@Query("select c from Formateur.mesCompetences c ")
 	public Page<Formateur> findPageFormateurCompetences(Pageable pageable);
 	@Query("select c from Formateur.mesCompetences c ")
 	public ArrayList<Formateur> findFormateurCompetences();
 	
-	/*Lister les groupes d'un formateur */
+	Lister les groupes d'un formateur 
 	@Query("select g from Formateur.mesGroupes g ")
 	public Page<Formateur> findPageFormateurGroupes(Pageable pageable);
 	@Query("select g from Formateur.mesGroupes g ")
 	public ArrayList<Formateur> findFormateurGroupes();
-	
+	*/
 	/*Chercher formateur par CIN*/
 	@Query("select f from Formateur f where f.CIN like :x ")
 	public Page<Produit> chercherProduits(@Param("x") String mc,Pageable pageable);

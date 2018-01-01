@@ -22,8 +22,6 @@ public class Competence {
 	private Date DateModification;
 	private Date DateSuppression;
 	
-	@ManyToMany
-	private Collection<Produit> ListProduit;
 	
 	public Competence(){
 

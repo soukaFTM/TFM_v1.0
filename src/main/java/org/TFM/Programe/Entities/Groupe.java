@@ -1,7 +1,8 @@
 package org.TFM.Programe.Entities;
 
+import java.sql.Time;
+import java.sql.Time;
 import java.util.Collection;
-import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +15,6 @@ import javax.persistence.OneToMany;
 
 import org.TFM.Clients.Entities.Enfant;
 import org.TFM.Formateur.Entities.Formateur;
-import org.TFM.Produits.Entities.AbstractProduit;
 
 @Entity
 public class Groupe {
@@ -37,8 +37,8 @@ public class Groupe {
 			inverseJoinColumns = @JoinColumn(name = "codeRealisation"))
 	private Collection<RealisationProjet> ListProjet;
 
-	private Date heureDebut;
-	private Date heureFin;
+	private Time heureDebut = new Time(0);
+	private Time heureFin =  new Time(0);
 	private String jour;
 	
 	@ManyToOne
@@ -49,19 +49,19 @@ public class Groupe {
 		return CodeGroupe;
 	}
 
-	public Date getHeureDebut() {
+	public Time getHeureDebut() {
 		return heureDebut;
 	}
 
-	public void setHeureDebut(Date heureDebut) {
+	public void setHeureDebut(Time heureDebut) {
 		this.heureDebut = heureDebut;
 	}
 
-	public Date getHeureFin() {
+	public Time getHeureFin() {
 		return heureFin;
 	}
 
-	public void setHeureFin(Date heureFin) {
+	public void setHeureFin(Time heureFin) {
 		this.heureFin = heureFin;
 	}
 

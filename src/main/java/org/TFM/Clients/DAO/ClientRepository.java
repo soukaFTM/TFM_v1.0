@@ -27,14 +27,15 @@ public interface ClientRepository extends JpaRepository<Client, Long>{
 	public Page<Client> findPageClientMoral(Pageable pageable);
 	@Query("select c from ClientMoral c ")
 	public ArrayList<Client> findClientMoral();
-	
-	/*les clients Potentiels*/
-	@Query("select c from Client c where c.ListEnfant")
+	/*
+	/*les clients Potentiels*/ 
+	// Declanche des erreurs
+/*	@Query("select c from Client c where c.ListEnfant")
 	public Page<Client> findPageClientPotentiel(Pageable pageable);
 	@Query("select c from ClientMoral c ")
 	public ArrayList<Client> findClientPotentiel();
 
-
+*/
 
 
 	

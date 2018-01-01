@@ -42,19 +42,19 @@ public class Produit extends AbstractProduit {
 			inverseJoinColumns = @JoinColumn(name = "codeProjet"))
 	private Collection<Projet> ListProjet;
 	
-	@JsonIgnore
+	//@JsonIgnore
 	public Collection<Competence> getListCompetence() {
 		return ListCompetence;
 	}
-	@JsonSetter
+	//@JsonSetter
 	public void setListCompetence(Collection<Competence> listCompetence) {
 		ListCompetence = listCompetence;
 	}
-	@JsonIgnore
+	//@JsonIgnore
 	public Collection<Projet> getListProjet() {
 		return ListProjet;
 	}
-	@JsonSetter
+	//@JsonSetter
 	public void setListProjet(Collection<Projet> listProjet) {
 		ListProjet = listProjet;
 	}

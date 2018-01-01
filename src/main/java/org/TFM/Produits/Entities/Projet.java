@@ -20,8 +20,6 @@ public class Projet {
 	private Date DateModification;
 	private Date DateSuppression;
 	
-	@ManyToMany
-	private Collection<Produit> ListProduit;
 	
 	/*
 	public Collection<Produit> getListProduit() {
