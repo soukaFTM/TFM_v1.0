@@ -7,6 +7,7 @@ import org.TFM.Formateur.Entities.Formateur;
 import org.TFM.Produits.DAO.CompetenceRepository;
 import org.TFM.Produits.DAO.ProduitRepository;
 import org.TFM.Produits.Entities.AbstractProduit;
+import org.TFM.Produits.Entities.Competence;
 import org.TFM.Produits.Entities.Pack;
 import org.TFM.Produits.Entities.Produit;
 import org.TFM.Programe.DAO.GroupeRepository;
@@ -102,6 +103,29 @@ public class FormateurRestService {
 		}
 		return ResponsableForProgramme;
 		
+	}
+	
+	
+	@RequestMapping(value="/addCompetenceToFormateur/{codeFormateur}",method=RequestMethod.PUT)
+	public Formateur addCompetenceToFormateur(@RequestBody Competence comp,@PathVariable ("codeFormateur") Long codeFormateur)
+	{
+		Formateur Formateur = (Formateur) formateurRepository.findOne(codeFormateur);
+		Formateur.getMesCompetences().add(comp);
+		return formateurRepository.save(Formateur); 
+		
+	}
+	@RequestMapping(value="/removeCompetenceFromFormateur/{codeFormateur}",method=RequestMethod.PUT)
+	public Formateur removeCompetenceFromFormateur(@RequestBody Competence comp,@PathVariable ("codeFormateur") Long codeFormateur)
+	{
+		Formateur Formateur = (Formateur) formateurRepository.findOne(codeFormateur);
+		for (Competence c : Formateur.getMesCompetences()) {
+			if(c.getCodeCompetence()==comp.getCodeCompetence())
+			{
+				Formateur.getMesCompetences().remove(c);
+				return formateurRepository.save(Formateur); 
+			}
+		}
+		return formateurRepository.save(Formateur); 
 	}
 	
 }
