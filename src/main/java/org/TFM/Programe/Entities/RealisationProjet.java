@@ -1,8 +1,11 @@
 package org.TFM.Programe.Entities;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,8 +17,12 @@ import javax.persistence.OneToMany;
 import org.TFM.Produits.Entities.Projet;
 import org.TFM.Produits.Entities.TypeProduit;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
-public class RealisationProjet {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
+public class RealisationProjet implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -23,16 +30,16 @@ public class RealisationProjet {
 	private int evaluationGlobal;
 	private String remarque;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "codeProjet")
 	private Projet projet;
 	
-	@OneToMany
+	@OneToMany(fetch = FetchType.LAZY)
 	@JoinTable(
 			name = "ProjetSeance", 
 			joinColumns = @JoinColumn(name = "CodeRealisation"),
 			inverseJoinColumns = @JoinColumn(name = "codeSeance"))
-	private Collection<Seance> ListSeance;
+	private Collection<Seance> ListSeance = new ArrayList<Seance>();
 
 	public long getCodeRealisation() {
 		return CodeRealisation;

@@ -1,5 +1,6 @@
 package org.TFM.Produits.Entities;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -11,6 +12,8 @@ import javax.persistence.DiscriminatorType;
 
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 /**
  * @author Xwomen
  * @version 1.0
@@ -20,6 +23,7 @@ import javax.persistence.InheritanceType;
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="CategorieProduit",
 discriminatorType=DiscriminatorType.STRING,length=7)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class AbstractProduit {
 
 	public AbstractProduit(String intituler, double prix, String description) {

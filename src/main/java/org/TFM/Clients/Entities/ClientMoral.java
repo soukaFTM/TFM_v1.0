@@ -1,11 +1,17 @@
 package org.TFM.Clients.Entities;
 
+import java.io.Serializable;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @DiscriminatorValue("MORAL")
-public class ClientMoral extends Client {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
+public class ClientMoral extends Client implements Serializable{
 	private String nomClient;
 	private String statutJuridique;
 	public ClientMoral() {

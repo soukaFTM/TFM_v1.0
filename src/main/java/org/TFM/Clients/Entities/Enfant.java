@@ -15,11 +15,17 @@ import javax.persistence.OneToMany;
 
 import org.TFM.Commande.Entities.Commande;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.Collection;
 
 @Entity 
-public class Enfant {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
+public class Enfant implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long codeEnfant;
@@ -64,6 +70,7 @@ public class Enfant {
 	public void setCodeEnfant(long codeEnfant) {
 		this.codeEnfant = codeEnfant;
 	}
+	@JsonIgnore
 	public Collection<Commande> getListCommande() {
 		return ListCommande;
 	}

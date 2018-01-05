@@ -6,6 +6,7 @@ import org.TFM.Clients.Entities.Enfant;
 import org.TFM.Commande.DAO.CommandeRepository;
 import org.TFM.Commande.Entities.Commande;
 import org.TFM.Formateur.Entities.Formateur;
+import org.TFM.Produits.DAO.ProjetRepository;
 import org.TFM.Produits.Entities.AbstractProduit;
 import org.TFM.Produits.Entities.Pack;
 import org.TFM.Produits.Entities.Produit;
@@ -37,23 +38,36 @@ public class GroupeRestService {
 	@Autowired 
 	ProgrammeRepository programmeRepository;
 	@Autowired 
-	RealisationProjetRepository realisationProjetRepository;;
+	RealisationProjetRepository realisationProjetRepository;
+	@Autowired
+	ProjetRepository ProjetRepository;
 	
 	@RequestMapping(value="/Groupe/{codeGroupe}",method=RequestMethod.GET)
 	public Groupe GetGroupe(@PathVariable ("codeGroupe") Long codeGroupe)
 	{
 		return (Groupe) groupeRepository.findOne(codeGroupe); 
 	}
+	@RequestMapping(value="/findGroupeOfProjet/{codeProjet}",method=RequestMethod.GET)
+	public Groupe findGroupeOfProjet(@PathVariable ("codeProjet") Long codeProjet)
+	{
+		return (Groupe) groupeRepository.findGroupeOfProjet(codeProjet); 
+	}
+	
+	
 	
 	@RequestMapping(value="/ProjetsDuGroupe/{codeGroupe}",method=RequestMethod.GET)
 	public ArrayList<Projet> ProjetsDuGroupe(@PathVariable ("codeGroupe") Long codeGroupe)
 	{
 		
 		ArrayList<Projet> listeProjet = new ArrayList<Projet>();
-		for (Programme prog : programmeRepository.findAll()) {
+		listeProjet.addAll(ProjetRepository.findProjetsDuGroupeProduit(codeGroupe));
+		listeProjet.addAll(ProjetRepository.findProjetsDuGroupePack(codeGroupe));
+		
+		/*for (Programme prog : programmeRepository.findAll()) {
 			if(prog.getListGroupe().contains(groupeRepository.findOne(codeGroupe)))
 			{
 				AbstractProduit Aprod = prog.getProduit();
+				System.out.println(Aprod.getIntituler()+ "+"+Aprod.getClass().getName());
 				if(Aprod.getClass().getName().equals("org.TFM.Produits.Entities.Pack"))
 				{
 					Pack prod=(Pack)Aprod;
@@ -67,7 +81,7 @@ public class GroupeRestService {
 					
 				}
 			}
-		}
+		}*/
 		return listeProjet;
 	}
 	
@@ -79,29 +93,7 @@ public class GroupeRestService {
 		return groupeRepository.save(g); 
 		
 	}	
-	
-	/*
- @RequestMapping(value="/addCommandeToGroupe/{codeCommande}",method=RequestMethod.PUT)
-	public Groupe addCommandeToGroupe(@RequestBody GroupePotentiel Groupe,@PathVariable ("numcmd") Long numcmd)
-	{
-		Groupe GroupePotentiel = (Groupe) groupeRepository.findOne(numGroupe);
-		GroupePotentiel.getListGroupePotentiel().add(Groupe);
-		return groupeRepository.save(GroupePotentiel); 
-		
-	}*/
-/*@RequestMapping(value="/removeGroupePotentielFromGroupe/{numGroupe}",method=RequestMethod.PUT)
-	public Groupe removeGroupePotentielFromGroupe(@RequestBody Groupe GroupeAsupp,@PathVariable ("numGroupe") Long numGroupe)
-	{
-		Groupe GroupePotentiel = (Groupe) groupeRepository.findOne(numGroupe);
-		for (AbstractGroupePotentiel p : GroupePotentiel.getListGroupePotentiel()) {
-			if(p.getNumGroupePotentiel()==GroupeAsupp.getNumGroupePotentiel())
-			{
-				GroupePotentiel.getListGroupePotentiel().remove(p);
-				return groupeRepository.save(GroupePotentiel); 
-			}
-		}
-		return groupeRepository.save(GroupePotentiel); 
-	}*/
+
 	
 	
 	/****************** Traitement commun *********************/

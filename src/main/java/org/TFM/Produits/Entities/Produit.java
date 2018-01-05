@@ -1,5 +1,6 @@
 package org.TFM.Produits.Entities;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 import javax.persistence.DiscriminatorValue;
@@ -22,7 +23,9 @@ import com.fasterxml.jackson.annotation.JsonSetter;
  */
 @Entity
 @DiscriminatorValue("PROD") 
-public class Produit extends AbstractProduit {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
+public class Produit extends AbstractProduit implements Serializable{
 
 	@ManyToOne
 	@JoinColumn(name = "CodeType")

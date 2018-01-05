@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.TFM.Produits.Entities.Pack;
 import org.TFM.Produits.Entities.Produit;
+import org.TFM.Programe.Entities.Groupe;
 import org.TFM.Produits.Entities.AbstractProduit;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,6 +31,11 @@ public interface ProduitRepository extends JpaRepository<AbstractProduit, Long>{
 
 	@Query("select p from Pack p ")
 	public ArrayList<Pack> findPacks();
+	
+
+	@Query("select produit from AbstractProduit produit , RealisationProjet projet , Groupe groupe , Programme programme "
+			+ "where programme.produit = produit And groupe in elements(programme.ListGroupe) And projet in elements(groupe.ListProjet) And projet.CodeRealisation  = :x ")
+	public AbstractProduit findProduitOfProjet(@Param("x") Long id_Realisation);
 	
 
 	

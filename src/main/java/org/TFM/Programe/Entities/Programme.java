@@ -1,9 +1,11 @@
 package org.TFM.Programe.Entities;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.Collection;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,21 +18,25 @@ import org.TFM.Produits.Entities.AbstractProduit;
 import org.TFM.Produits.Entities.Produit;
 import org.TFM.Produits.Entities.TypeProduit;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
-public class Programme {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
+public class Programme implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long CodeProgramme;
 	
-	@OneToMany
+	@OneToMany(fetch = FetchType.LAZY)
 	@JoinTable(
 			name = "ProgrammeGroupe", 
 			joinColumns = @JoinColumn(name = "codeProgramme"),
 			inverseJoinColumns = @JoinColumn(name = "codeGroupe"))
 	private Collection<Groupe> ListGroupe;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CodeProduit")
 	public AbstractProduit produit;
 	

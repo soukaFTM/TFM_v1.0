@@ -1,5 +1,6 @@
 package org.TFM.Formateur.Entities;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
@@ -17,8 +18,12 @@ import org.TFM.Produits.Entities.Competence;
 import org.TFM.Programe.Entities.Groupe;
 import org.TFM.Programe.Entities.Seance;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
-public class Formateur {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
+public class Formateur implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

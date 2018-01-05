@@ -1,5 +1,6 @@
 package org.TFM.Produits.Entities;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 
@@ -12,7 +13,9 @@ import javax.persistence.ManyToMany;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-public class Competence {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
+public class Competence implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long CodeCompetence;

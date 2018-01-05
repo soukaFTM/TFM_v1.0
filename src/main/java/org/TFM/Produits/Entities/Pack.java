@@ -1,17 +1,23 @@
 package org.TFM.Produits.Entities;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @DiscriminatorValue("PACK")
-public class Pack extends AbstractProduit {
-	@OneToMany
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
+public class Pack extends AbstractProduit implements Serializable{
+	@OneToMany(fetch = FetchType.LAZY)
 	@JoinTable(
 			name = "PackProduit", 
 			joinColumns = @JoinColumn(name = "NumPack"),

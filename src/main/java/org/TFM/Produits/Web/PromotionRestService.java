@@ -38,9 +38,9 @@ public class PromotionRestService {
 	@RequestMapping(value="/savePromotion",method=RequestMethod.POST)
 	public Promotion savePromotion(@RequestBody Promotion p)
 	{
-		Promotion promo = promotionRepository.findOne(p.getCodePromo());
-		if(promo!=null)
+		if(p.getCodePromo()!=null)
 		{
+			Promotion promo = promotionRepository.findOne(p.getCodePromo());
 			promo.setDescription(p.getDescription());
 			promo.setTaux(p.getTaux());
 			promo.setDateDebut(p.getDateDebut());

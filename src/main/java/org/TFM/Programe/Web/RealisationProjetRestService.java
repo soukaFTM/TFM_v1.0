@@ -3,16 +3,19 @@ package org.TFM.Programe.Web;
 import java.util.ArrayList;
 
 import org.TFM.Clients.Entities.Enfant;
-import org.TFM.Commande.DAO.CommandeRepository;
-import org.TFM.Commande.Entities.Commande;
 import org.TFM.Formateur.Entities.Formateur;
 import org.TFM.Produits.Entities.AbstractProduit;
 import org.TFM.Produits.Entities.Pack;
 import org.TFM.Produits.Entities.Produit;
 import org.TFM.Produits.Entities.Projet;
 import org.TFM.Programe.DAO.RealisationProjetRepository;
+import org.TFM.Programe.DAO.SeanceRepository;
+import org.TFM.Programe.DAO.PresenceRepository;
 import org.TFM.Programe.DAO.ProgrammeRepository;
 import org.TFM.Programe.Entities.RealisationProjet;
+import org.TFM.Programe.Entities.Seance;
+import org.TFM.Programe.Entities.Groupe;
+import org.TFM.Programe.Entities.Presence;
 import org.TFM.Programe.Entities.Programme;
 import org.TFM.Programe.Entities.RealisationProjet;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,39 +38,17 @@ public class RealisationProjetRestService {
 	RealisationProjetRepository RealisationProjetRepository;
 	@Autowired 
 	ProgrammeRepository programmeRepository;
-	/*
+	@Autowired 
+	SeanceRepository seanceRepository;
+	@Autowired
+	PresenceRepository presenceRepository;
+	
 	@RequestMapping(value="/RealisationProjet/{codeRealisationProjet}",method=RequestMethod.GET)
+
 	public RealisationProjet GetRealisationProjet(@PathVariable ("codeRealisationProjet") Long codeRealisationProjet)
 	{
 		return (RealisationProjet) RealisationProjetRepository.findOne(codeRealisationProjet); 
 	}
-	
-	@RequestMapping(value="/ProjetsDuRealisationProjet/{codeRealisationProjet}",method=RequestMethod.GET)
-	public ArrayList<Projet> ProjetsDuRealisationProjet(@PathVariable ("codeRealisationProjet") Long codeRealisationProjet)
-	{
-		
-		ArrayList<Projet> listeProjet = new ArrayList<Projet>();
-		for (Programme prog : programmeRepository.findAll()) {
-			if(prog.getListRealisationProjet().contains(RealisationProjetRepository.findOne(codeRealisationProjet)))
-			{
-				AbstractProduit Aprod = prog.getProduit();
-				if(Aprod.getClass().getName().equals("org.TFM.Produits.Entities.Pack"))
-				{
-					Pack prod=(Pack)Aprod;
-					 for (Produit p : prod.getListProduit()) 
-						 listeProjet.addAll(p.getListProjet());
-				}
-				else
-				{
-					Produit prod=(Produit)Aprod;
-					 listeProjet.addAll(prod.getListProjet());
-					
-				}
-			}
-		}
-		return listeProjet;
-	}
-	
 	
 	
 	@RequestMapping(value="/saveRealisationProjet",method=RequestMethod.POST)
@@ -77,28 +58,25 @@ public class RealisationProjetRestService {
 		
 	}	
 	
-	/*
- @RequestMapping(value="/addCommandeToRealisationProjet/{codeCommande}",method=RequestMethod.PUT)
-	public RealisationProjet addCommandeToRealisationProjet(@RequestBody RealisationProjetPotentiel RealisationProjet,@PathVariable ("numcmd") Long numcmd)
+ 
+	@RequestMapping(value="/addSeanceToRealisationProjet/{numProjet}",method=RequestMethod.PUT)
+	public RealisationProjet addSeanceToRealisationProjet(@PathVariable ("numProjet") Long numProjet,@RequestBody Seance s)
 	{
-		RealisationProjet RealisationProjetPotentiel = (RealisationProjet) RealisationProjetRepository.findOne(numRealisationProjet);
-		RealisationProjetPotentiel.getListRealisationProjetPotentiel().add(RealisationProjet);
-		return RealisationProjetRepository.save(RealisationProjetPotentiel); 
-		
-	}*/
-/*@RequestMapping(value="/removeRealisationProjetPotentielFromRealisationProjet/{numRealisationProjet}",method=RequestMethod.PUT)
-	public RealisationProjet removeRealisationProjetPotentielFromRealisationProjet(@RequestBody RealisationProjet RealisationProjetAsupp,@PathVariable ("numRealisationProjet") Long numRealisationProjet)
-	{
-		RealisationProjet RealisationProjetPotentiel = (RealisationProjet) RealisationProjetRepository.findOne(numRealisationProjet);
-		for (AbstractRealisationProjetPotentiel p : RealisationProjetPotentiel.getListRealisationProjetPotentiel()) {
-			if(p.getNumRealisationProjetPotentiel()==RealisationProjetAsupp.getNumRealisationProjetPotentiel())
-			{
-				RealisationProjetPotentiel.getListRealisationProjetPotentiel().remove(p);
-				return RealisationProjetRepository.save(RealisationProjetPotentiel); 
-			}
+		for (Presence p : s.getPresenceEnfants()) {
+			presenceRepository.save(p);
 		}
-		return RealisationProjetRepository.save(RealisationProjetPotentiel); 
-	}*/
+		Seance Seance = seanceRepository.save(s);
+		
+		RealisationProjet projet = (RealisationProjet) RealisationProjetRepository.findOne(numProjet);
+
+		if(s.getCodeSeance()==null)
+		{
+			projet.getListSeance().add(Seance);
+			RealisationProjetRepository.save(projet);
+		}
+
+		return projet; 
+	}
 	
 	
 	/****************** Traitement commun *********************/
@@ -135,12 +113,12 @@ public class RealisationProjetRestService {
 		return RealisationProjetRepository.save(RealisationProjet); 
 	}
 	*/
-	/*@RequestMapping(value="/addCommandeToRealisationProjet/{numRealisationProjet}",method=RequestMethod.PUT)
-	public RealisationProjet addCommandeToRealisationProjet(@RequestBody Commande c,@PathVariable ("numRealisationProjet") Long numRealisationProjet)
+	/*@RequestMapping(value="/addSeanceToRealisationProjet/{numRealisationProjet}",method=RequestMethod.PUT)
+	public RealisationProjet addSeanceToRealisationProjet(@RequestBody Seance c,@PathVariable ("numRealisationProjet") Long numRealisationProjet)
 	{
-		Commande commande = commandeRepository.save(c);
+		Seance Seance = SeanceRepository.save(c);
 		RealisationProjet RealisationProjet = (RealisationProjet) RealisationProjetRepository.findOne(numRealisationProjet);
-		RealisationProjet.getListCommande().add(commande);
+		RealisationProjet.getListSeance().add(Seance);
 		return RealisationProjetRepository.save(RealisationProjet); 
 	}*/
 }

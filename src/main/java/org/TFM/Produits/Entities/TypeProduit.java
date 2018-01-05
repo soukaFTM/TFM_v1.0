@@ -1,5 +1,6 @@
 package org.TFM.Produits.Entities;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -7,13 +8,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * @author Xwomen
  * @version 1.0
  * @created 27-nov.-2017 11:34:09
  */
 @Entity
-public class TypeProduit {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
+public class TypeProduit implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long CodeType;

@@ -1,11 +1,13 @@
 package org.TFM.Clients.Entities;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,18 +17,23 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity 
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="TypeClient",
 discriminatorType=DiscriminatorType.STRING,length=7)
-public abstract class Client {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
+public abstract class Client implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long codeClient;
 	private String adress;
 	private String numTelePortable;
 	private String numTeleFixe;
-	@OneToMany
+	@OneToMany(fetch = FetchType.LAZY)
 	@JoinTable(
 			name = "EnfantClient", 
 			joinColumns = @JoinColumn(name = "codeClient"),

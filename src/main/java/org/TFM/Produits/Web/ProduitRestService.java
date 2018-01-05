@@ -6,6 +6,7 @@ import org.TFM.Produits.Entities.*;
 import org.TFM.Produits.DAO.ProduitRepository;
 import org.TFM.Produits.DAO.ProjetRepository;
 import org.TFM.Produits.Entities.AbstractProduit;
+import org.TFM.Programe.Entities.Groupe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -156,6 +157,13 @@ public class ProduitRestService {
 			}
 		}
 		return produitRepository.save(produit); 
+	}
+	
+	
+	@RequestMapping(value="/findProduitOfProjet/{codeProjet}",method=RequestMethod.GET)
+	public Long findProduitOfProjet(@PathVariable ("codeProjet") Long codeProjet)
+	{
+		return (Long) produitRepository.findProduitOfProjet(codeProjet).getNumProduit(); 
 	}
 	
 }

@@ -1,44 +1,52 @@
 package org.TFM.Programe.Entities;
 
-import java.sql.Time;
-import java.sql.Time;
+import java.io.Serializable;
+import java.sql.Date;
+import java.sql.Date;
+import java.sql.Date;
 import java.util.Collection;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import org.TFM.Clients.Entities.Enfant;
 import org.TFM.Formateur.Entities.Formateur;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
-public class Groupe {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
+public class Groupe implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long CodeGroupe;
 	
-	@OneToMany
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(
 			name = "GroupeEnfant", 
 			joinColumns = @JoinColumn(name = "codeGroupe"),
 			inverseJoinColumns = @JoinColumn(name = "codeEnfant"))
 	private Collection<Enfant> ListEnfant;
 	
-	@OneToMany
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(
 			name = "GroupeProjet", 
 			joinColumns = @JoinColumn(name = "codeGroupe"),
 			inverseJoinColumns = @JoinColumn(name = "codeRealisation"))
 	private Collection<RealisationProjet> ListProjet;
 
-	private Time heureDebut = new Time(0);
-	private Time heureFin =  new Time(0);
+	private Date heureDebut ;
+	private Date heureFin ;
 	private String jour;
 	
 	@ManyToOne
@@ -49,19 +57,19 @@ public class Groupe {
 		return CodeGroupe;
 	}
 
-	public Time getHeureDebut() {
+	public Date getHeureDebut() {
 		return heureDebut;
 	}
 
-	public void setHeureDebut(Time heureDebut) {
+	public void setHeureDebut(Date heureDebut) {
 		this.heureDebut = heureDebut;
 	}
 
-	public Time getHeureFin() {
+	public Date getHeureFin() {
 		return heureFin;
 	}
 
-	public void setHeureFin(Time heureFin) {
+	public void setHeureFin(Date heureFin) {
 		this.heureFin = heureFin;
 	}
 
