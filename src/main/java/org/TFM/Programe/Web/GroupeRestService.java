@@ -110,6 +110,14 @@ public class GroupeRestService {
 	}
 	
 	
+	
+	@RequestMapping(value="/addEnfantsToGroupe/{numGroupe}",method=RequestMethod.PUT)
+	public Groupe addEnfantsToGroupe(@RequestBody ArrayList<Enfant> listEnfant,@PathVariable ("numGroupe") Long numGroupe)
+	{
+		Groupe groupe = (Groupe) groupeRepository.findOne(numGroupe);
+		groupe.getListEnfant().addAll(listEnfant);
+		return groupeRepository.save(groupe); 
+	}
 
 	@RequestMapping(value="/addRealisationProjetToGroupe/{numGroupe}",method=RequestMethod.PUT)
 	public Groupe addRealisationProjetToGroupe(@RequestBody Projet projet,@PathVariable ("numGroupe") Long numGroupe)

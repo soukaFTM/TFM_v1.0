@@ -38,8 +38,19 @@ public class Programme implements Serializable{
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CodeProduit")
-	public AbstractProduit produit;
+	private AbstractProduit produit;
 	
+	private int dureeSeance;
+	
+	
+	public int getDureeSeance() {
+		return dureeSeance;
+	}
+
+	public void setDureeSeance(int dureeSeance) {
+		this.dureeSeance = dureeSeance;
+	}
+
 	public AbstractProduit getProduit() {
 		return produit;
 	}

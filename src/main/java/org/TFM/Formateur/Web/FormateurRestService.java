@@ -69,6 +69,14 @@ public class FormateurRestService {
 		formateurRepository.delete(codeFormateur); 
 	}
 	
+	/* Supprimer Formateur */
+	@RequestMapping(value="/getFormateurByID/{codeFormateur}",method=RequestMethod.GET)
+	public Formateur getFormateurByID(@PathVariable ("codeFormateur") Long codeFormateur)
+	{
+		return (Formateur)formateurRepository.findOne(codeFormateur); 
+	}
+	
+	
 	/* Modifier Formateur */
 	
 	

@@ -2,6 +2,7 @@ package org.TFM.Formateur.Entities;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -42,6 +43,22 @@ public class Formateur implements Serializable{
 			inverseJoinColumns = @JoinColumn(name = "CodeSeance"))
 	private List<Seance> mesSeances;
 	
+	@OneToMany
+	@JoinTable(
+			name = "SuiviFormateur", 
+			joinColumns = @JoinColumn(name = "CodeFormateur"),
+			inverseJoinColumns = @JoinColumn(name = "CodeSuivi"))
+	private List<SuiviMensuelle> suivi;
+	
+	
+	public List<SuiviMensuelle> getSuivi() {
+		return suivi;
+	}
+
+	public void setSuivi(List<SuiviMensuelle> suivi) {
+		this.suivi = suivi;
+	}
+
 	@OneToMany
 	@JoinTable(
 			name = "GroupesFormateur", 
@@ -140,6 +157,35 @@ public class Formateur implements Serializable{
 
 	public void setMesGroupes(List<Groupe> mesGroupes) {
 		this.mesGroupes = mesGroupes;
+	}
+	
+	public SuiviMensuelle getSuiviOfMonth(Date date)
+	{
+		Calendar calSerched = Calendar.getInstance();
+		Calendar calSaved = Calendar.getInstance();
+		calSerched.setTime(date);
+		int monthSerched = calSerched.get(Calendar.MONTH);
+		int yearSerched = calSerched.get(Calendar.YEAR);
+		
+		System.out.println("Month looking : "+monthSerched+"Year"+yearSerched);
+		
+		for (SuiviMensuelle s : suivi) {
+			
+			calSaved.setTime(s.getFinMois());
+			int monthSaved = calSaved.get(Calendar.MONTH);
+			int yearSaved = calSaved.get(Calendar.YEAR);
+			System.out.println("Month : "+monthSaved+"Year"+yearSaved);
+
+			if(monthSaved==monthSerched && yearSaved == yearSerched )
+			{
+				System.out.println("Month : "+monthSaved+"Year"+yearSaved);
+
+				return s;
+			}
+			
+		}
+		
+		return null;
 	}
 	
 }

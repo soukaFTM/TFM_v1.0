@@ -10,6 +10,7 @@ import org.TFM.Clients.Entities.ClientPhysique;
 import org.TFM.Clients.Entities.Enfant;
 import org.TFM.Commande.DAO.CommandeRepository;
 import org.TFM.Commande.Entities.Commande;
+import org.TFM.Programe.Entities.Groupe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -74,6 +75,12 @@ public class ClientRestService {
 		return clientRepository.save(p); 
 		
 	}	
+	
+	@RequestMapping(value="/getClientByID/{codeclient}",method=RequestMethod.GET)
+	public Client getClientByID(@PathVariable ("codeclient") Long codeclient)
+	{
+		return (Client) clientRepository.findOne(codeclient); 
+	}
 	
 	/*
  @RequestMapping(value="/addCommandeToClient/{codeCommande}",method=RequestMethod.PUT)

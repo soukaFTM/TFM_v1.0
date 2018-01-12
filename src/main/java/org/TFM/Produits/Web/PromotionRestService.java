@@ -2,6 +2,9 @@ package org.TFM.Produits.Web;
 
 import org.TFM.Produits.Entities.Produit;
 import org.TFM.Produits.Entities.Promotion;
+
+import java.util.ArrayList;
+
 import org.TFM.Produits.DAO.PromotionRepository;
 import org.TFM.Produits.Entities.AbstractProduit;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class PromotionRestService {
 	@Autowired 
 	PromotionRepository promotionRepository;
+	
+	@RequestMapping(value="/getPromotionOfProduit/{codeProduit}",method=RequestMethod.GET)
+	public ArrayList<Promotion> getPromotionOfProduit(@PathVariable ("codeProduit") Long codeProduit)
+	{
+		return promotionRepository.getPromotionOfProduit(codeProduit); 
+	}
+	
 	
 	@RequestMapping(value="/promotions",method=RequestMethod.GET)
 	public Page<Promotion> listPromotion(

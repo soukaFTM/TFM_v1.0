@@ -1,6 +1,7 @@
 package org.TFM.Commande.Entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.Entity;
@@ -31,8 +32,31 @@ public class Commande implements Serializable{
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CodeProgramme")
-	public Programme programme;
+	private Programme programme = new Programme();
 	
+	private Boolean paiement = false;
+	
+	
+	
+	public Boolean getPaiement() {
+		return paiement;
+	}
+	public void setPaiement(Boolean paiement) {
+		this.paiement = paiement;
+	}
+	public Collection<Enfant> getListEnfant() {
+		return ListEnfant;
+	}
+	public void setListEnfant(Collection<Enfant> listEnfant) {
+		ListEnfant = listEnfant;
+	}
+	public Programme getProgramme() {
+		return programme;
+	}
+	public void setProgramme(Programme programme) {
+		this.programme = programme;
+	}
+
 	public Commande() {
 		super();
 		// TODO Auto-generated constructor stub

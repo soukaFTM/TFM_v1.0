@@ -15,6 +15,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -33,6 +34,12 @@ public abstract class Client implements Serializable{
 	private String adress;
 	private String numTelePortable;
 	private String numTeleFixe;
+	
+	@ManyToOne
+	@JoinColumn(name = "CodeType")
+	public TypeClient typeClient;
+	
+	
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinTable(
 			name = "EnfantClient", 
